@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>socket</title>
+</head>
+<style>
+  .sjx{
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 150px solid #232323;
+  }
+  .scroll{
+    margin-top: 300px;
+    width: 500px;
+    height: 100px;
+    overflow: scroll;
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+
+
+  }
+</style>
+<body>
+  <div class="sjx"></div>
+  <div onclick="stop()"> 停止</div>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script> -->
+  <!-- <script>
+    const l = console.log
+    let socket = io('http://localhost:3008');
+    // console.log(socket)
+    socket.on('connect', function () {
+      socket.emit('events',{name:'success'})
+      // 发射
+      socket.emit('events', {
+        name: 'push'
+      });
+      socket.emit('events',{name:'hey'})
+      // // 发射
+      // socket.emit('events', {
+      //   name: 'alone'
+      // });
+
+      // 发射
+      // socket.emit('identity', 0, (response) => console.log('Identity:', response));
+    });
+
+    // 监听
+    socket.on('events', (data) => {
+      l(data)
+    });
+  </script> -->
+
+  <div class="scroll">
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+  </div>
+</body>
+<script>
+  /**
+   *  常见面试题
+   * */
+
+  // 什么是闭包
+  // 可以访问到另一个函数作用域内变量的函数就是闭包
+
+  // 闭包产生的原因
+  // js有一个作用域链的概念，访问一个变量时在当前作用域找不到就会往父级找，子函数会拷贝父级的作用域，形成一个作用域链条
+  // 外层函数的函数作用域对象，因为被内层函数作用域链引用无法释放，就成了闭包
+
+  // 闭包的应用场景
+  // 保护函数内的变量安全：如生成器。
+  // 在内存中维持变量：如果缓存数据、柯里化。下面的节流和防抖函数.
+ 
+
+  // instanceof检测原理
+  // instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
+
+  /**
+   * 一些手写面试题
+   * */
+   
+  // 手写防抖和节流
+  // 防抖：通过setTimeout，在一定时间内将多次触发变成一次触发
+  // 频繁点击只会执行最后一次
+  // function debounce(fn,time){
+  //   let timeout = null;
+  //   return ()=>{
+  //     clearTimeout(timeout);
+  //     timeout = setTimeout(()=>{
+  //       fn.apply(this,arguments)
+  //     },time)
+  //   }
+  // }
+
+  // 节流:一定时间内减少执行频率
+  // 节流阀：判断时间差值来再次触发函数,固定时间执行一次
+  // function throttle(fn,delay){
+  //   var begin = 0
+  //   return function(){
+  //     let cur = new Date().getTime()
+  //     if(cur - begin > delay){
+  //       fn.apply(this,arguments)
+  //       begin = cur
+  //     }
+  //   }
+  // }
+
+
+  // let stop  = throttle(function(){
+  //     console.log(11)
+  // },5000)
+
+
+
+  //  手写promiseAll
+  // let m1 = new Promise((resolve,reject)=>{
+  //   setTimeout(()=>{
+  //     resolve(1111)
+  //   },2000)
+  // })
+  // let m2 = new Promise((resolve,reject)=>{
+  //   setTimeout(()=>{
+  //     resolve(2222)
+  //   },2000)
+  // })
+  // function myPromiseAll(lists){
+  //   return new Promise(resolve=>{
+  //     let Arr = []
+  //     let num = 0
+  //     lists.forEach(item => {
+  //         item.then(res=>{
+  //           Arr.push(res)
+  //           num++
+  //           if(num === lists.length){
+  //             resolve(Arr)
+  //           }
+  //         })
+  //     });
+  //   })
+  // }
+  // myPromiseAll([m1,m2]).then(res=>{
+  //   console.log(res);
+  // })
+
+
+  // 手写深拷贝--简易版
+  // let obj = [
+  //   {
+  //     a:11
+  //   },
+  //   222,
+  //   '333'
+  // ]
+  // function deepClone(obj){
+  //   let result
+  //   if(typeof obj !== 'object' || obj == null){
+  //     return obj
+  //   }
+  //   if(obj instanceof Array){
+  //     result = []
+  //   }else{
+  //     result = {}
+  //   }
+  //   for(let key in obj){
+  //     if(obj.hasOwnProperty(key)){
+  //       result[key] = deepClone(obj[key])
+  //     }
+  //   }
+  //   return result
+  // }
+  // let newobj = deepClone(obj)
+  // console.log(newobj);
+  // newobj[2] = 99999
+  // console.log(newobj);
+  // console.log(obj)
+
+  // 数组扁平化--使用reduce
+  // const arr = [[1,23,4],3,[12,[123,444]],9999]
+  // function flatten(arr){
+  //   return arr.reduce((pro,nxt)=>{
+  //     return pro.concat(Array.isArray(nxt)?flatten(nxt):nxt)
+  //   },[])
+  // }
+  // const res = flatten(arr)
+  // console.log(res);
+
+  // 数组去重
+  // let arr = [1,1,'22',2,22,'222','22',true,true,false,false,false]
+  // let newArr = Array.from(new Set(arr))
+
+  // function OF(arr){
+  //   let newArr  = []
+  //   arr.forEach(item => {
+  //     if(newArr.indexOf(item) === -1){
+  //       newArr.push(item)
+  //     }
+  //   });
+  //   return newArr
+  // }
+  // console.log(OF(arr));
+  // console.log(newArr);
+
+
+</script>
+</html>
