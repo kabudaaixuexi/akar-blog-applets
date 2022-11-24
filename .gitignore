@@ -1,0 +1,11 @@
+.DS_Store
+*.json.gzip
+node_modules/
+npm-debug.log
+# dist
+/lib
+/.vscode/
+/coverage
+yarn.lock
+/.history
+*.zip
